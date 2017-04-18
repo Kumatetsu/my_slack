@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Wed Apr 12 21:23:51 2017 BILLAUD Jean
-** Last update Tue Apr 18 16:59:07 2017 BILLAUD Jean
+** Last update Tue Apr 18 20:21:51 2017 BILLAUD Jean
 */
 
 #include 	<stdlib.h>
@@ -31,6 +31,8 @@ int		main()
   if (listener != 3)
     return (0);
   my_put_nbr(listener);
+  my_putstr(env->first->name);
+  my_putstr(env->last->name);
   my_serv(listener, env);
   return (0);
 }

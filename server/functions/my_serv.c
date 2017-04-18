@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Mon Apr 17 11:58:18 2017 BILLAUD Jean
-** Last update Tue Apr 18 17:27:52 2017 BILLAUD Jean
+** Last update Tue Apr 18 21:52:16 2017 BILLAUD Jean
 */
 
 #include 	<stdlib.h>
@@ -35,12 +35,13 @@ void			accept_cli(int listener, t_env *env)
   int			client;
   socklen_t		socklen;
   t_user		*user;
+  char			*welcome;
 
-  
   socklen = sizeof(cli_addr);
+  welcome = "Welcome to my_slack\nGive your name:\n"; 
   client = accept(listener, (struct sockaddr *)&cli_addr, &socklen);
-  user = create_user("toto", client);
-  add_user_to_chan(env->first, user);
-  send(client, "Welcome to my_slack\n", strlen("Welcome to my_slack\n"), MSG_DONTWAIT);
-  notify_new_user(env->first);
+  user = create_user("", client);
+  add_user_to_chan(env->last, user);
+  send(client, welcome, strlen(welcome), MSG_DONTWAIT);
+  ask_user_name(env->last);
 }

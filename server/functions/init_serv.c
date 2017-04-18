@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sun Apr 16 13:21:13 2017 BILLAUD Jean
-** Last update Tue Apr 18 17:22:18 2017 BILLAUD Jean
+** Last update Tue Apr 18 20:20:00 2017 BILLAUD Jean
 */
 
 #include 		<stdlib.h>
@@ -57,9 +57,12 @@ t_env			*init_env()
 {
   t_env			*env;
   t_channel		*chan;
+  t_channel		*waitin;
 
   env = create_env();
   chan = create_channel("general");
+  waitin = create_channel("101010");
   add_channel_to_env(env, chan);
+  add_channel_to_env(env, waitin);
   return (env);
 }
