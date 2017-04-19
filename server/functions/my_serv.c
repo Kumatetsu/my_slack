@@ -21,6 +21,9 @@
 #include        "../headers/structures.h"
 #include        "../headers/server.h"
 
+/*
+** Boucle principale du server
+*/
 void		my_serv(int listener, t_env *env)
 {
   while(42)
@@ -29,6 +32,10 @@ void		my_serv(int listener, t_env *env)
     }
 }
 
+/*
+** crée le file descriptor du cli et annonce sa connexion aux
+** autres du channel
+*/
 void			accept_cli(int listener, t_env *env)
 {
   struct sockaddr_in	cli_addr;

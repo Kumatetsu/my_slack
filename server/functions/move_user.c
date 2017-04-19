@@ -17,6 +17,11 @@
 #include        "../headers/structures.h"
 #include        "../headers/server.h"
 
+/*
+** Les deux fonctions permettent de:
+** - add le user à un autre chan
+** - le supprimer de l'ancien chan
+*/
 void		change_user_channel(t_channel *chan1, t_channel *chan2, t_user *user)
 {
   remove_user_from_chan(chan1, user, 0);

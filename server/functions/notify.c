@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Tue Apr 18 17:11:52 2017 BILLAUD Jean
-** Last update Tue Apr 18 17:29:44 2017 BILLAUD Jean
+** Last update Tue Apr 18 18:05:43 2017 BILLAUD Jean
 */
 
 #include 		<stdlib.h>
@@ -21,6 +21,11 @@
 #include        	"../headers/structures.h"
 #include        	"../headers/server.h"
 
+/*
+** Previent tous les utilisateurs du channel actuel qu'un nouveau
+** est arrivé
+**
+*/
 void			notify_new_user(t_channel *chan)
 {
   t_user		*tmp;

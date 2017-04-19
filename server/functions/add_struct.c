@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Thu Apr 13 16:34:07 2017 BILLAUD Jean
-** Last update Sun Apr 16 12:39:23 2017 BILLAUD Jean
+** Last update Tue Apr 18 17:56:23 2017 BILLAUD Jean
 */
 
 #include 	<stdlib.h>
@@ -17,6 +17,10 @@
 #include        "../headers/structures.h"
 #include        "../headers/server.h"
 
+/*
+** on fait les liaison d'une structure chan dans la structure env qui représente le serveur complet
+** chan est un channel créé dans lequel les users seront regroupé
+*/
 void		add_channel_to_env(t_env *env, t_channel *chan)
 {
   if (env->first == NULL)
@@ -32,6 +36,9 @@ void		add_channel_to_env(t_env *env, t_channel *chan)
     }
 }
 
+/*
+** on insère le user au sein d'un channel
+*/
 void		add_user_to_chan(t_channel *chan, t_user *user)
 {
   if (chan->first == NULL)

@@ -5,11 +5,10 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sun Apr 16 11:11:46 2017 BILLAUD Jean
-** Last update Mon Apr 17 11:09:35 2017 BILLAUD Jean
 */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "../headers/structures.h"
 #include "../headers/server.h"
 
