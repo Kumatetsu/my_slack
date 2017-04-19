@@ -5,7 +5,7 @@
 ** Login   <debell_e@etna-alternance.net>
 **
 ** Started on  Wed Apr 19 16:57:49 2017 DEBELLEIX Jérémy
-** Last update Wed Apr 19 19:50:30 2017 DEBELLEIX Jérémy
+** Last update Wed Apr 19 21:20:39 2017 DEBELLEIX Jérémy
 */
 
 #include 	<stdlib.h>
@@ -23,14 +23,14 @@ static const t_command    g_tab_commands[] =
     // {"quit", &quit},
     // {"join", &join},
     // {"direct", &direct},
-    // {"channel_list", &channel_list},
+    {"channel_list", &channel_list},
     {"command_list", &command_list},
     {NULL, NULL},
   };
 
-int    check_command(char *input, t_env *env)
+int    get_cmd(char *input, t_env *env)
 {
-  int i;
+  int  i;
 
   i = 0;
   while (g_tab_commands[i].input != NULL)
@@ -45,10 +45,34 @@ int    check_command(char *input, t_env *env)
   return (0);
 }
 
+void        channel_list(t_env *env)
+{
+  t_channel *tmp;
+  char      *chan_name;
+  
+  tmp = env->first;
+  my_putstr("liste des channels :\n");
+  while (tmp)
+    {
+      chan_name = tmp->name;
+      my_putstr(chan_name);
+      my_putstr("\n");
+      tmp = tmp->next;
+    }
+}
+
 void    command_list(t_env *env)
 {
-  int	i = 0;
+  int	i;
+  char  *current_channel;
 
+  i = 0;
+/*  current_chan = get_current_chan(env);
+  if (my_strcmp((current_channel, "general") == 0))
+    {
+      i = 1;
+    } 
+*/
   my_putstr("Commandes possibles :\n");
   while (g_tab_commands[i].input != NULL)
     {
