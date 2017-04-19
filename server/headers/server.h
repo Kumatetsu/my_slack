@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Thu Apr 13 16:21:13 2017 BILLAUD Jean
-** Last update Tue Apr 18 17:27:24 2017 BILLAUD Jean
+** Last update Wed Apr 19 19:41:24 2017 DEBELLEIX Jérémy
 */
 
 #ifndef		__SERVER_H_
@@ -76,4 +76,11 @@ t_env		*init_env();
 void		my_serv(int listener, t_env *env);
 void		accept_cli(int listener, t_env *env);
 void		notify_new_user(t_channel *chan);
+
+/*
+** Server commands
+*/
+
+void            command_list(t_env *env);
+
 #endif

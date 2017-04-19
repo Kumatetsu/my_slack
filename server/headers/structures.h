@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Wed Apr 12 21:07:53 2017 BILLAUD Jean
-** Last update Tue Apr 18 17:00:28 2017 BILLAUD Jean
+** Last update Wed Apr 19 19:49:57 2017 DEBELLEIX Jérémy
 */
 
 #ifndef __STRUCTURES_H_
@@ -14,6 +14,7 @@
 typedef struct	s_user		t_user;
 typedef struct	s_channel	t_channel;
 typedef struct  s_env		t_env;
+typedef struct  s_command       t_command;
 
 struct				s_user
 {
@@ -38,4 +39,9 @@ struct				s_env
   t_channel			*last;
 };
 
+struct                          s_command
+{
+  char  			*input;
+  void   			(*f)(t_env*);
+};
 #endif
