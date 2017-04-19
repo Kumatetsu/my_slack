@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sun Apr 16 11:21:09 2017 BILLAUD Jean
-** Last update Mon Apr 17 11:12:38 2017 BILLAUD Jean
+** Last update Wed Apr 19 20:43:55 2017 BILLAUD Jean
 */
 
 #include 	<stdlib.h>
@@ -26,11 +26,17 @@ void		change_user_channel(t_channel *chan1, t_channel *chan2, t_user *user)
 void		remove_user_from_chan(t_channel *channel, t_user *user, int quit)
 {
   if (channel->last == channel->first)
-    channel->first = NULL;
+    {
+      channel->first = NULL;
+    }
   else if (user->next == NULL)
-    channel->last = user->prev;
+    {
+      channel->last = user->prev;
+    }
   else if (user->prev == NULL)
-    channel->first = user->next;
+    {
+      channel->first = user->next;
+    }
   else
     {
       user->next->prev = user->prev;
