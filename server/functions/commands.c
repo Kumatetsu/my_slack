@@ -5,7 +5,7 @@
 ** Login   <debell_e@etna-alternance.net>
 **
 ** Started on  Wed Apr 19 16:57:49 2017 DEBELLEIX Jérémy
-** Last update Wed Apr 19 21:20:39 2017 DEBELLEIX Jérémy
+** Last update Thu Apr 20 21:09:22 2017 DEBELLEIX Jérémy
 */
 
 #include 	<stdlib.h>
@@ -19,12 +19,12 @@
 
 static const t_command    g_tab_commands[] =
   {
+    {"quit_channel", &quit_channel},
     // {"exit", &exit},
-    // {"quit", &quit},
-    // {"join", &join},
+    {"join", &join},
     // {"direct", &direct},
-    {"channel_list", &channel_list},
-    {"command_list", &command_list},
+    {"channel_lists", &channel_list},
+    {"commands_list", &command_list},
     {NULL, NULL},
   };
 
@@ -67,12 +67,11 @@ void    command_list(t_env *env)
   char  *current_channel;
 
   i = 0;
-/*  current_chan = get_current_chan(env);
+  current_chan = get_current_chan(env);
   if (my_strcmp((current_channel, "general") == 0))
     {
       i = 1;
     } 
-*/
   my_putstr("Commandes possibles :\n");
   while (g_tab_commands[i].input != NULL)
     {
@@ -81,3 +80,21 @@ void    command_list(t_env *env)
       ++i;
     }
 }
+
+void		quit_channel(t_env *env)
+{
+  t_user	current_user;
+  t_channel	current_chan;
+  t_channel	general;
+
+  current_user = get_current_user(env);
+  current_chan = get_current_channel(env);
+  general = env->first;
+  if (my_strcmp(current_chan, "general") != 0)
+    {
+      remove_user_from_chan(current_chan, user, 0);
+      change_user_channel(current_chan, general, current_user);
+    }
+}
+
+void		direct()
