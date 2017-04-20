@@ -5,12 +5,13 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Thu Apr 13 16:21:13 2017 BILLAUD Jean
-** Last update Wed Apr 19 21:00:55 2017 DEBELLEIX Jérémy
+** Last update Thu Apr 20 21:22:18 2017 DEBELLEIX Jérémy
 */
 
 #ifndef		__SERVER_H_
 #define		__SERVER_H_
 
+# define	BUFF_SIZE	3000
 
 /*
 ** Libmy
@@ -74,7 +75,7 @@ void		free_env(t_env *env);
 int		init_server();
 t_env		*init_env();
 void		my_serv(int listener, t_env *env);
-void		accept_cli(int listener, t_env *env);
+int		accept_cli(int listener, t_env *env);
 void		notify_new_user(t_channel *chan);
 int             get_cmd(char *input, t_env *env);
 
@@ -84,4 +85,8 @@ int             get_cmd(char *input, t_env *env);
 
 void            command_list(t_env *env);
 void            channel_list(t_env *env);
+void		send_msg_in_chan(t_env *e, int fd, char * buf);
+void	my_putstr_fd(int fd, char *str);
+void		client_read(t_env *e, int fd);
+
 #endif

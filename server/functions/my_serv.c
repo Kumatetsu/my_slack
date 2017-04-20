@@ -26,9 +26,11 @@
 */
 void		my_serv(int listener, t_env *env)
 {
+  int fd;
   while(42)
     {
-      accept_cli(listener, env);
+      fd = accept_cli(listener, env);
+      client_read(env, fd);
     }
 }
 
@@ -36,7 +38,7 @@ void		my_serv(int listener, t_env *env)
 ** crée le file descriptor du cli et annonce sa connexion aux
 ** autres du channel
 */
-void			accept_cli(int listener, t_env *env)
+int			accept_cli(int listener, t_env *env)
 {
   struct sockaddr_in	cli_addr;
   int			client;
@@ -50,4 +52,5 @@ void			accept_cli(int listener, t_env *env)
   add_user_to_chan(env->first, user);
   send(client, "Welcome to my_slack\n", strlen("Welcome to my_slack\n"), MSG_DONTWAIT);
   notify_new_user(env->first);
+  return user->cli_addr;
 }
