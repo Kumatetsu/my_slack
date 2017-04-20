@@ -5,7 +5,7 @@
 ** Login   <debell_e@etna-alternance.net>
 **
 ** Started on  Wed Apr 19 16:57:49 2017 DEBELLEIX Jérémy
-** Last update Thu Apr 20 21:09:22 2017 DEBELLEIX Jérémy
+** Last update Thu Apr 20 21:56:06 2017 DEBELLEIX Jérémy
 */
 
 #include 	<stdlib.h>
@@ -27,23 +27,6 @@ static const t_command    g_tab_commands[] =
     {"commands_list", &command_list},
     {NULL, NULL},
   };
-
-int    get_cmd(char *input, t_env *env)
-{
-  int  i;
-
-  i = 0;
-  while (g_tab_commands[i].input != NULL)
-    {
-      if (my_strcmp(g_tab_commands[i].input, input) == 0)
-	{
-	  g_tab_commands[i].f(env);
-	  return (1);
-	}
-      ++i;
-    }
-  return (0);
-}
 
 void        channel_list(t_env *env)
 {
