@@ -5,7 +5,7 @@
 ** Login   <mesrat_n@etna-alternance.net>
 ** 
 ** Started on  Wed Apr 19 19:38:54 2017 MESRATI Nada
-** Last update Wed Apr 19 19:38:55 2017 MESRATI Nada
+** Last update Thu Apr 20 22:16:02 2017 DEBELLEIX Jérémy
 */
 
 #include 		<stdlib.h>
@@ -23,11 +23,23 @@
 
 int 	get_cmd(t_env *e, char *buf, int fd)
 {
-	(void)e;
-	(void)buf;
-	(void)fd;
-	my_putstr("get cmd");
-	return (1);
+  (void)e;
+  (void)buf;
+  (void)fd;
+  my_putstr("get cmd");
+  int  i;
+	
+  i = 0;
+  while (g_tab_commands[i].input != NULL)
+    {
+      if (my_strcmp(g_tab_commands[i].input, input) == 0)
+        {
+          g_tab_commands[i].f(env);
+          return (1);
+        }
+      ++i;
+    }
+  return (0);
 }
 
 int my_disconnect(t_env *e, int fd)
