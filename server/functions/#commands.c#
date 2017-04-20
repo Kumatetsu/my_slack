@@ -20,7 +20,7 @@
 static const t_command    g_tab_commands[] =
   {
     {"quit_channel", &quit_channel},
-<    // {"exit", &exit},
+    // {"exit", &exit},
     {"join", &join},
     // {"direct", &direct},
     {"channel_lists", &channel_list},
@@ -80,4 +80,7 @@ void		quit_channel(t_env *env)
     }
 }
 
-void		direct()
+void		direct(t_env *e, char *buf, int fd)
+{
+  
+}

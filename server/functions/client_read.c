@@ -5,7 +5,7 @@
 ** Login   <mesrat_n@etna-alternance.net>
 ** 
 ** Started on  Wed Apr 19 19:38:54 2017 MESRATI Nada
-** Last update Thu Apr 20 22:16:02 2017 DEBELLEIX Jérémy
+** Last update Thu Apr 20 23:13:21 2017 DEBELLEIX Jérémy
 */
 
 #include 		<stdlib.h>
@@ -27,14 +27,24 @@ int 	get_cmd(t_env *e, char *buf, int fd)
   (void)buf;
   (void)fd;
   my_putstr("get cmd");
+  char **tab;
   int  i;
-	
+
+  tab = my_str_to_wordtab(buf, " ");
   i = 0;
-  while (g_tab_commands[i].input != NULL)
+  while (g_tab_commands[i].tab[0] != NULL)
     {
-      if (my_strcmp(g_tab_commands[i].input, input) == 0)
+      if (my_strcmp(g_tab_commands[i].input, tab[0]) == 0)
         {
-          g_tab_commands[i].f(env);
+	  if (i == 2 || i == 3)
+	    {
+	      if (tab[1] != NULL)
+		g_tab_commands[i].f(e, tab[1], fd);
+	      else
+	      // TODO Message d'erreur
+	    }
+	  else
+	    g_tab_commands[i].f(e);
           return (1);
         }
       ++i;
