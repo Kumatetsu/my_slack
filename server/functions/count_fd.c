@@ -1,11 +1,11 @@
 /*
-** my_serv.c for my_slack in /home/naej/ETNA/my_slack/server/functions
+** count_fd.c for my_slack in /Volumes/Neku/Projets-Etna/my_slack/server
 ** 
 ** Made by BILLAUD Jean
 ** Login   <billau_j@etna-alternance.net>
 ** 
-** Started on  Mon Apr 17 11:58:18 2017 BILLAUD Jean
-** Last update Thu Apr 20 23:09:01 2017 BILLAUD Jean
+** Started on  Thu Apr 20 23:05:20 2017 BILLAUD Jean
+** Last update Thu Apr 20 23:08:54 2017 BILLAUD Jean
 */
 
 #include 	<stdlib.h>
@@ -20,17 +20,3 @@
 #include	<sys/types.h>
 #include        "../headers/structures.h"
 #include        "../headers/server.h"
-
-/*
-** Boucle principale du server
-*/
-void		my_serv(int listener, t_env *env)
-{
-  int 		fd;
-  while(42)
-    {
-      fd = accept_cli(listener, env);
-      client_read(env, fd);
-    }
-}
-

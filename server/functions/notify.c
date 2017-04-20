@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Tue Apr 18 17:11:52 2017 BILLAUD Jean
-** Last update Tue Apr 18 18:05:43 2017 BILLAUD Jean
+** Last update Thu Apr 20 22:40:29 2017 BILLAUD Jean
 */
 
 #include 		<stdlib.h>
@@ -28,12 +28,12 @@
 */
 void			notify_new_user(t_channel *chan)
 {
-  t_user		*tmp;
+  t_node		*tmp;
 
   tmp = chan->first;
   while (tmp->next)
     {
-      send(tmp->cli_addr, "Un nouvel utilisateur vient de se connecter\n",strlen("Un nouvel utilisateur vient de se connecter\n"), MSG_DONTWAIT);
+      send(tmp->user->cli_addr, "Un nouvel utilisateur vient de se connecter\n",strlen("Un nouvel utilisateur vient de se connecter\n"), MSG_DONTWAIT);
       tmp = tmp->next;
     }
 }

@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sun Apr 16 13:21:13 2017 BILLAUD Jean
-** Last update Tue Apr 18 18:03:04 2017 BILLAUD Jean
+** Last update Thu Apr 20 21:48:09 2017 BILLAUD Jean
 */
 
 #include 		<stdlib.h>
@@ -69,10 +69,16 @@ int			init_server()
 t_env			*init_env()
 {
   t_env			*env;
+  t_cont_u		*c_users;
+  t_cont_c		*c_chan;
   t_channel		*chan;
 
   env = create_env();
   chan = create_channel("general");
-  add_channel_to_env(env, chan);
+  c_users = create_cont_u();
+  c_chan = create_cont_c();
+  add_container_to_env(env, c_users, c_chan);
+  add_channel(c_chan, chan);
+  
   return (env);
 }

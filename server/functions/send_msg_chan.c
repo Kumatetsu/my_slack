@@ -5,7 +5,7 @@
 ** Login   <mesrat_n@etna-alternance.net>
 ** 
 ** Started on  Wed Apr 19 19:47:15 2017 MESRATI Nada
-** Last update Wed Apr 19 19:47:18 2017 MESRATI Nada
+** Last update Thu Apr 20 22:53:00 2017 BILLAUD Jean
 */
 
 #include 		<stdlib.h>
@@ -24,31 +24,31 @@
 t_channel		*get_current_chan(t_channel *list, int fd)
 {
   t_channel	*tmp;
-  t_user	*user;
+  t_node	*node;
 
   tmp = list;
   while (tmp)
     {
-      user = tmp->first;
-      while (user)
+      node = tmp->first;
+      while (node)
 	{
-	  if (user->cli_addr == fd)
+	  if (node->user->cli_addr == fd)
 	    return (tmp);
-	  user = user->next;
+	  node = node->next;
 	}
       tmp = tmp->next;
     }
   return (NULL);
 }
 
-t_user	*get_current_user(t_user *list, int fd)
+t_node	*get_current_user(t_node *list, int fd)
 {
-  t_user	*tmp;
+  t_node	*tmp;
 
   tmp = list;
   while (tmp)
     {
-      if (tmp->cli_addr == fd)
+      if (tmp->user->cli_addr == fd)
 	return (tmp);
       tmp = tmp->next;
     }
@@ -57,7 +57,7 @@ t_user	*get_current_user(t_user *list, int fd)
 
 void writing(int fd, char *str, char *buf)
 {
-    my_putstr_fd(fd, str);
+    	my_putstr_fd(fd, str);
 	my_putstr_fd(fd, ": ");
 	my_putstr_fd(fd, buf);
 	my_putstr_fd(fd, "\n");	
@@ -65,24 +65,24 @@ void writing(int fd, char *str, char *buf)
 
 void		send_msg_in_chan(t_env *e, int fd, char * buf)
 {
-  t_user	*user;
+  t_node	*n_user;
   t_channel	*current_chan;
-  t_user	*current_user;
+  t_node	*current_user;
 
-  current_chan = get_current_chan(e->first, fd);
-  user = (current_chan == NULL) ? NULL : current_chan->first;
-  current_user = (!user) ? NULL : get_current_user(user, fd);
+  current_chan = get_current_chan(e->chan->first, fd);
+  n_user = (current_chan == NULL) ? NULL : current_chan->first;
+  current_user = (!n_user) ? NULL : get_current_user(n_user, fd);
   if (!current_chan)
     my_putstr_fd(fd, "send msg: error join a chan before.\n");
-  while (user)
+  while (n_user)
     {
-      if (FD_ISSET(user->cli_addr, &e->fd_write) && fd != user->cli_addr)
+      if (FD_ISSET(n_user->user->cli_addr, &e->fd_write) && fd != n_user->user->cli_addr)
 	{
-	  if (current_user != NULL && current_user->login)
-    	writing(user->cli_addr, current_user->login, buf);
+	  if (current_user != NULL && current_user->user->login)
+    	writing(n_user->user->cli_addr, current_user->user->login, buf);
 	  else if (current_user != NULL)
-    	writing(user->cli_addr, "unknown", buf);
+    	writing(n_user->user->cli_addr, "unknown", buf);
 	}
-      user = user->next;
+      n_user = n_user->next;
     }
 }

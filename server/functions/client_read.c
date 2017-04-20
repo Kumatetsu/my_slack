@@ -5,7 +5,7 @@
 ** Login   <mesrat_n@etna-alternance.net>
 ** 
 ** Started on  Wed Apr 19 19:38:54 2017 MESRATI Nada
-** Last update Wed Apr 19 19:38:55 2017 MESRATI Nada
+** Last update Thu Apr 20 21:59:06 2017 BILLAUD Jean
 */
 
 #include 		<stdlib.h>
@@ -27,7 +27,7 @@ int 	get_cmd(t_env *e, char *buf, int fd)
 	(void)buf;
 	(void)fd;
 	my_putstr("get cmd");
-	return (1);
+	return (0);
 }
 
 int my_disconnect(t_env *e, int fd)

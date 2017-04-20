@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Thu Apr 13 16:21:13 2017 BILLAUD Jean
-** Last update Thu Apr 20 23:23:36 2017 BILLAUD Jean
+** Last update Thu Apr 20 22:38:56 2017 BILLAUD Jean
 */
 
 #ifndef		__SERVER_H_
@@ -85,5 +85,4 @@ void		notify_new_user(t_channel *chan);
 void		send_msg_in_chan(t_env *e, int fd, char * buf);
 void		my_putstr_fd(int fd, char *str);
 void		client_read(t_env *e, int fd);
-void		set_fd(t_env *env);
 #endif

@@ -5,17 +5,21 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Wed Apr 12 21:24:35 2017 BILLAUD Jean
-** Last update Tue Apr 18 17:59:54 2017 BILLAUD Jean
+** Last update Thu Apr 20 22:23:39 2017 BILLAUD Jean
 */
 
-#include 	<stdlib.h>
-#include 	<stdio.h>
-#include 	<unistd.h>
-#include 	<netdb.h>
-#include 	<sys/socket.h>
-#include 	<arpa/inet.h>
-#include        "../headers/structures.h"
-#include        "../headers/server.h"
+#include 		<stdlib.h>
+#include 		<stdio.h>
+#include		<string.h>
+#include 		<unistd.h>
+#include 		<netdb.h>
+#include		<netinet/in.h>
+#include 		<sys/socket.h>
+#include 		<arpa/inet.h>
+#include		<sys/select.h>
+#include		<sys/types.h>
+#include        	"../headers/structures.h"
+#include        	"../headers/server.h"
 
 /*
 ** On créé la structure envorinnement qui est un simple container permettant 
@@ -32,8 +36,10 @@ t_env		*create_env()
       my_putstr("ERROR: CREATE ENV ABORT");
       return (0);
     }
-  env->first = NULL;
-  env->last  = NULL;
+  env->chan  = NULL;
+  env->users = NULL;
+  FD_ZERO(&env->fd_read);
+  FD_ZERO(&env->fd_write);
   my_putstr("INFO: L'environnement a bien été créé\n");
   return (env);
 }
@@ -44,7 +50,7 @@ t_env		*create_env()
 ** et le cli_addr est le file descriptor qui permet au serv
 ** de communiquer avec la bonne socket;
 */
-t_user		*create_user(char *login, int cli_addr)
+t_user		*create_user(int cli_addr)
 {
   t_user	*user;
 
@@ -55,8 +61,10 @@ t_user		*create_user(char *login, int cli_addr)
       my_putstr("ERROR: Le user n'a pu être créé\n");
       return (0);
     }
-  user->login = my_strdup(login);
+  user->login = NULL;
+  user->state = WAIT;
   user->cli_addr = cli_addr;
+  user->f = NULL;
   user->next = NULL;
   user->prev = NULL;
   my_putstr("INFO: Le user a bien été créé\n");
@@ -85,4 +93,22 @@ t_channel	*create_channel(char *cli_name)
   channel->prev = NULL;
   my_putstr("INFO: Le channel a bien été créé\n");
   return (channel);
+}
+
+t_node		*create_node(t_user *user)
+{
+  t_node	*node;
+
+  node = NULL;
+  node = malloc(sizeof (*node));
+  if (node == NULL)
+    {
+      my_putstr("ERROR: le node n'a pas pu être créé\n");
+      return (0);
+    }
+  node->next = NULL;
+  node->prev = NULL;
+  node->user = user;
+  my_putstr("INFO: node pour client créé\n");
+  return (node);
 }

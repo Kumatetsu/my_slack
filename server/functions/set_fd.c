@@ -1,10 +1,11 @@
 /*
-** free_struct.c for my_slack in /home/naej/ETNA/my_slack/server/functions
+** set_fd.c for my_slack in /Volumes/Neku/Projets-Etna/my_slack/server
 ** 
 ** Made by BILLAUD Jean
 ** Login   <billau_j@etna-alternance.net>
 ** 
-** Started on  Sun Apr 16 11:11:46 2017 BILLAUD Jean
+** Started on  Thu Apr 20 23:20:10 2017 BILLAUD Jean
+** Last update Thu Apr 20 23:23:09 2017 BILLAUD Jean
 */
 
 #include 		<stdlib.h>
@@ -20,19 +21,13 @@
 #include        	"../headers/structures.h"
 #include        	"../headers/server.h"
 
-void	free_user(t_user *user)
+void			set_fd(t_env *env)
 {
-  free(user->login);
-  free(user);
-}
+  t_user		*tmp;
 
-void	free_channel(t_channel *channel)
-{
-  free(channel->name);
-  free(channel);
-}
-
-void	free_env(t_env	*env)
-{
-  free(env);
+  tmp = env->users->first;
+  for (tmp = env->users->first; tmp != NULL; tmp = tmp->next)
+    {
+      FD_SET(tmp->cli_addr, &env->fd_read);
+    }
 }
