@@ -117,10 +117,20 @@ int		my_list(t_env *e, char **cmd, int fd)
 
 int		my_nick(t_env *e, char **cmd, int fd)
 {
-  /*A FAIRE*/
-  (void)e;
-  (void)cmd;
-  (void)fd;
+  t_user *user;
+
+  user = get_current_user(e->list, fd);
+  if (cmd[2])
+    {
+      my_putstr_fd(fd, "/nick : error, too much arguments.\n");
+    }
+  if (cmd[1])
+    {
+      user->login = my_strdup(cmd[1]);
+      my_putstr(user->login);
+    }
+  else
+    my_putstr_fd(fd, "/nick : error, argument missed.\n");
   return (0);
 }
 
