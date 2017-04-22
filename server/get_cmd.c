@@ -1,6 +1,6 @@
 #include "server.h"
 
-t_cmd		g_tab[] =
+static const t_cmd		g_tab[] =
   {
     {"/nick", &my_nick},
     {"/list", &my_list},
@@ -9,6 +9,7 @@ t_cmd		g_tab[] =
     {"/exit", &my_exit},
     {"/users", &my_users},
     {"/whisp", &my_whisp},
+    {"/help", &my_commands_list},
     {NULL, NULL}
   };
 
@@ -50,8 +51,6 @@ int		my_exit(t_env *e, char **cmd, int fd)
     }
   my_putstr_fd(fd, "disconnected.\n");
   my_disconnect(e, fd);
-  return (0);
-  my_putstr_fd(fd, "disconnected.\n");
   return (0);
 }
 
@@ -122,11 +121,8 @@ int		my_nick(t_env *e, char **cmd, int fd)
   user = get_current_user(e->list, fd);
   if (cmd[2])
       my_putstr_fd(fd, "/nick : error, too much arguments.\n");
-  if (cmd[1])
-    {
+  else if (cmd[1])
       user->login = my_strdup(cmd[1]);
-      my_putstr(user->login);
-    }
   else
     my_putstr_fd(fd, "/nick : error, argument missed.\n");
   return (0);
@@ -148,4 +144,38 @@ int		my_whisp(t_env *e, char **cmd, int fd)
   (void)cmd;
   (void)fd;
   return (0);
+}
+
+int   my_commands_list(t_env *e, char **cmd, int fd)
+{
+  if (tablen(cmd) == 1)
+    show_list_commands(e, fd);
+  else
+    my_putstr_fd(fd, "/help : error, too much arguments.\n");
+  return (0);
+}
+
+void            show_list_commands(t_env *e, int fd)
+{
+  t_chan        *chan;
+  int           i;
+
+  i = 0;
+  if ((chan = get_current_chan(e->chan, fd)))
+    {
+      if (chan->name)
+	{
+	  my_putstr_fd(fd, "Current channel : ");
+	  my_putstr_fd(fd, chan->name);
+	}
+    }
+  else
+    my_putstr_fd(fd, "You are in any channel");
+  my_putstr_fd(fd, "\nCommandes possibles :\n");
+  while (g_tab[i].cmd != NULL)
+    {
+      my_putstr_fd(fd, g_tab[i].cmd);
+      my_putstr_fd(fd, "\n");
+      ++i;
+    }
 }
