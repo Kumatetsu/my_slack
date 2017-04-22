@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sat Apr 22 18:07:06 2017 BILLAUD Jean
-** Last update Sat Apr 22 19:07:24 2017 BILLAUD Jean
+** Last update Sat Apr 22 22:38:28 2017 BILLAUD Jean
 */
 
 #include 	"../headers/server.h"
@@ -13,28 +13,16 @@
 void		my_disconnect(t_env *e, int fd)
 {
   t_user	*tmp;
-  t_chan	*current_chan;
-  t_node	*node;
+  t_user	*current;
 
+  current = get_current_user(e->list, fd);
   tmp = e->list;
-  close(fd);
-  my_putstr("Connection closed\n");
-  while (tmp->fd != fd && tmp != NULL)
-    tmp = tmp->next;
-  if (tmp != NULL && tmp->fd == fd)
-    tmp->type = FD_FREE;
-  current_chan = get_current_chan(e->chan, fd);
-  if (current_chan != NULL)
+  while (tmp)
     {
-      node = current_chan->first;
-      while (node)
-	{
-	  if (node->user->fd == fd && node->user->type == FD_CLIENT)
-	    {
-	      node->user->type = FD_FREE;
-	      node->user->login = NULL;
-	    }
-	  node = node->next;
-	}
+      if (tmp->next->fd == fd)
+	tmp->next = tmp->next->next;
+      tmp = tmp->next;
     }
+  free_user(current);
+  my_putstr("Connection closed\n");
 }

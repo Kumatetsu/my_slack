@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sat Apr 22 18:06:36 2017 BILLAUD Jean
-** Last update Sat Apr 22 22:25:32 2017 BILLAUD Jean
+** Last update Sat Apr 22 22:12:37 2017 BILLAUD Jean
 */
 
 #include 	"../headers/server.h"
@@ -60,6 +60,8 @@ int		my_exit(t_env *e, char **cmd, int fd)
     }
   my_putstr_fd(fd, "disconnected.\n");
   my_disconnect(e, fd);
+  return (0);
+  my_putstr_fd(fd, "disconnected.\n");
   return (0);
 }
 
