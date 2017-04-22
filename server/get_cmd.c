@@ -117,13 +117,11 @@ int		my_list(t_env *e, char **cmd, int fd)
 
 int		my_nick(t_env *e, char **cmd, int fd)
 {
-  t_user *user;
+  t_user	*user;
 
   user = get_current_user(e->list, fd);
   if (cmd[2])
-    {
       my_putstr_fd(fd, "/nick : error, too much arguments.\n");
-    }
   if (cmd[1])
     {
       user->login = my_strdup(cmd[1]);
@@ -136,10 +134,10 @@ int		my_nick(t_env *e, char **cmd, int fd)
 
 int		my_users(t_env *e, char **cmd, int fd)
 {
-  /*A FAIRE*/
-  (void)e;
-  (void)cmd;
-  (void)fd;
+  if (tablen(cmd) == 1)
+    show_list_users(e, fd);
+  else
+    my_putstr_fd(fd, "/users : error, too much arguments.\n");
   return (0);
 }
 

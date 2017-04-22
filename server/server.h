@@ -105,4 +105,5 @@ int		my_strncmp(char *, char *, int);
 int		my_strlen(char *);
 int		tablen(char **);
 int		my_getnbr(char *);
+void            show_list_users(t_env *e, int fd);
 #endif
