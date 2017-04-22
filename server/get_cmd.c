@@ -139,10 +139,10 @@ int		my_users(t_env *e, char **cmd, int fd)
 
 int		my_whisp(t_env *e, char **cmd, int fd)
 {
-  /*A FAIRE*/
-  (void)e;
-  (void)cmd;
-  (void)fd;
+  if (tablen(cmd) < 3)
+    my_putstr_fd(fd, "/users : error, too few arguments.\n");
+  else
+    send_direct_msg(e, cmd, fd);
   return (0);
 }
 
@@ -177,5 +177,31 @@ void            show_list_commands(t_env *e, int fd)
       my_putstr_fd(fd, g_tab[i].cmd);
       my_putstr_fd(fd, "\n");
       ++i;
+    }
+}
+
+void		send_direct_msg(t_env *e, char **cmd, int fd)
+{
+  t_user        *tmp;
+  int		i;
+
+  /*TODO afficher la personne qui envoie le message*/
+  (void)fd;
+  i = 1;
+  tmp = e->list;
+  while (tmp)
+    {
+      if (tmp->login)
+	{
+	  if (my_strcmp(tmp->login, cmd[1]) == 0)
+	    {
+	      while (cmd[++i])
+		{
+		  my_putstr_fd(tmp->fd, cmd[i]);
+		  my_putstr_fd(tmp->fd, " ");
+		}
+	    }
+	}
+      tmp = tmp->next;
     }
 }

@@ -96,6 +96,7 @@ t_user		*get_current_user_in_chan(t_chan *c, int fd);
 void            show_list_users(t_env *e, int fd);
 int		my_commands_list(t_env *e, char **cmd, int fd);
 void            show_list_commands(t_env *e, int fd);
+void		send_direct_msg(t_env *e, char **cmd, int fd);
 
 void		my_putstr(char *);
 void		my_putstr_fd(int fd, char *str);
@@ -106,6 +107,7 @@ char		**my_str_to_wordtab(char *, char);
 int		my_strcmp(char *, char *);
 int		my_strncmp(char *, char *, int);
 int		my_strlen(char *);
+char  *my_strcat(char *str1, char *str2);
 int		tablen(char **);
 int		my_getnbr(char *);
 #endif
