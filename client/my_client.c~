@@ -5,7 +5,7 @@
 ** Login   <mesrat_n@etna-alternance.net>
 ** 
 ** Started on  Tue Apr 18 16:30:20 2017 MESRATI Nada
-** Last update Wed Apr 26 20:20:58 2017 BILLAUD Jean
+** Last update Wed Apr 26 19:57:10 2017 BILLAUD Jean
 */
 
 #include "client.h"
@@ -70,6 +70,7 @@ int		my_client(int s)
 	r = 0;
       if (FD_ISSET(0, &fd_read))
 	{
+	  my_putstr("OK\n");
 	  r = send_input(s);
 	}
       if (FD_ISSET(s, &fd_read))
