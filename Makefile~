@@ -27,11 +27,13 @@ SRCS_SERVER =   server/functions/main.c			\
 		server/functions/add_elem.c		\
 		server/functions/change_chan.c		\
 		server/functions/check_user_in_chan.c	\
+		server/functions/freetab.c		\
 		server/functions/client_read.c		\
 		server/functions/create_env.c		\
 		server/functions/create_node.c		\
 		server/functions/get_cmd.c		\
 		server/functions/get_current.c		\
+		server/functions/get_cmd_serv.c		\
 		server/functions/list.c			\
 		server/functions/move_node.c		\
 		server/functions/my_disconnect.c	\
@@ -42,6 +44,12 @@ SRCS_SERVER =   server/functions/main.c			\
 		server/functions/send_msg_in_chan.c	\
 		server/functions/show_all_users.c	\
 		server/functions/tablen.c		\
+		server/functions/free_struct.c		\
+		server/functions/free_chain.c		\
+		server/functions/my_whisp.c		\
+		server/functions/my_nick.c		\
+		server/functions/cmd_exit_func.c	\
+		server/functions/cmd_list.c
 
 OBJS_CLIENT =	$(SRCS_CLIENT:%.c=%.o)
 

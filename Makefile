@@ -20,7 +20,8 @@ SRCS_CLIENT =	client/bzero.c		\
 		client/get_cmd.c	\
 		client/main.c		\
 		client/my_client.c	\
-		client/tablen.c
+		client/tablen.c		\
+		client/my_string.c	\
 
 SRCS_SERVER =   server/functions/main.c			\
 		server/functions/add_client.c		\
