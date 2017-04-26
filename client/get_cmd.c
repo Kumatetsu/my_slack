@@ -5,7 +5,7 @@
 ** Login   <mesrat_n@etna-alternance.net>
 ** 
 ** Started on  Tue Mar 28 17:19:35 2017 MESRATI Nada
-** Last update Wed Apr 26 19:56:36 2017 BILLAUD Jean
+** Last update Wed Apr 26 20:39:23 2017 BILLAUD Jean
 */
 #include "client.h"
 
@@ -23,6 +23,7 @@ int	server_cmd()
   char	buf[BUFF_SIZE];
 
   i = 0;
+  my_putstr_color("red", "~>");
   r = read(0, buf, BUFF_SIZE - 1);
   if (r > 0)
     {

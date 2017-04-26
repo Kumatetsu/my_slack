@@ -5,7 +5,7 @@
 ** Login   <mesrat_n@etna-alternance.net>
 ** 
 ** Started on  Tue Mar 28 17:19:35 2017 MESRATI Nada
-** Last update Wed Apr 26 12:34:37 2017 BILLAUD Jean
+** Last update Wed Apr 26 20:38:30 2017 BILLAUD Jean
 */
 #include "client.h"
 
@@ -47,6 +47,7 @@ int	get_cmd(char *buff)
   i = -1;
   r = 0;
   cmd = NULL;
+  my_putstr_color("red", "~>");
   if (buff[0] != '\0')
     {
       cmd = my_str_to_wordtab(buff, ' ');

@@ -32,5 +32,5 @@ int	connect_serv(char **cmd);
 int	server_cmd();
 int	my_server(char **cmd);
 int	my_quit(char **cmd);
-void	my_putstr_color(char *color, char *str);
+int	my_putstr_color(char *color, char *str);
 #endif
