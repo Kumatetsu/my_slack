@@ -4,6 +4,7 @@ t_srv_cmd	g_serv_tab[] =
   {
     {"/quit", &quit_serv},
     {"/kick", &kick},
+    {"/chan", &add_chan},
     {NULL, NULL}
   };
 
@@ -30,6 +31,26 @@ int		get_serv_cmd(t_env *e, char *buff)
       freetab(cmd);
       return (1);
     }
+  return (1);
+}
+
+int 	add_chan(t_env *e, char **cmd)
+{
+  char  *msg;
+  char  *name;
+
+  name = NULL;
+  if (tablen(cmd) == 2)
+    {
+      name = my_strdup(cmd[1]);
+      add_elem_chan(&e->chan, name);
+      my_putstr("Chan successfully creater\n");
+      msg = my_strdup("A new chan as been created");
+      send_msg_to_all(e, msg);
+      free(msg);
+    }
+  else
+      my_putstr("Bad using: /chan name\n"); 
   return (1);
 }
 

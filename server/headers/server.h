@@ -114,6 +114,7 @@ t_user		*get_current_user_in_chan(t_chan *c, int fd);
 void		init_channel(t_env *e);
 int		select_join(t_env *e, t_user *u, t_chan *chan, char *cmd );
 int		server_cmd(t_env *e, int fd);
+int     	add_chan(t_env *e, char **cmd);
 
 void		writing(int fd, char *login, char *buf);
 void		my_putstr(char *);
