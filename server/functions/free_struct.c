@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sat Apr 22 19:49:52 2017 BILLAUD Jean
-** Last update Wed Apr 26 18:35:03 2017 BILLAUD Jean
+** Last update Wed Apr 26 19:38:14 2017 BILLAUD Jean
 */
 
 #include "../headers/server.h"
@@ -40,4 +40,5 @@ void	free_conv(t_conv *c)
 {
   free(c->u_name);
   free(c->conv);
+  free(c);
 }
