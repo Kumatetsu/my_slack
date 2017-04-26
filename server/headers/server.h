@@ -36,12 +36,21 @@ typedef struct			s_node
   t_user			*user;
 }				t_node;
 
+typedef struct			s_conv
+{
+  int				u_fd;
+  char				*u_name;
+  char				*conv;
+  struct s_conv			*next;
+}				t_conv;
+
 typedef struct			s_chan
 {
   char				*name;
   t_node      			*first;
   t_node	        	*last;
   int				pos;
+  t_conv			*conv;
   struct s_chan			*next;
 }				t_chan;
 
@@ -129,9 +138,10 @@ void           	send_direct_msg(t_env *e, char **cmd, int fd);
 int    		is_existing_user(char *login, t_env *e, int fd);
 void            show_sender(t_env *e, int fd_sender, int fd_receiver);
 int    		is_existing_login(t_env *e, int fd, char *login);
+void		add_serv_name(t_user **list);
 void		add_fd(t_user *u, t_env *e);
 void		print_on_screen(t_node *u);
-
+void		notify_chan(t_env *e, int fd_cli, char *buf);
 void		free_user(t_user *u);
 void		free_node(t_node *n);
 void		free_chan(t_chan *c);
@@ -140,5 +150,9 @@ void		free_all_users(t_env *e);
 void		free_all_chan(t_env *e);
 void		free_all_node(t_chan *c);
 void		freetab(char **tab);
+void		add_conv_to_chan(t_chan *chan, int fd, char *name, char *buf);
+t_conv		*create_conv(int fd, char *name, char *buf);
+void		free_all_conv(t_chan *c);
+void		free_conv(t_conv *c);
 
 #endif

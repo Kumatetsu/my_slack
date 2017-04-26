@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sat Apr 22 18:05:55 2017 BILLAUD Jean
-** Last update Sun Apr 23 13:32:49 2017 BILLAUD Jean
+** Last update Wed Apr 26 18:28:14 2017 BILLAUD Jean
 */
 
 #include 	"../headers/server.h"
@@ -67,6 +67,7 @@ void		add_elem_chan(t_chan **list, char *name)
   new->next = NULL;
   new->first = NULL;
   new->last = NULL;
+  new->conv = NULL;
   if (*list == NULL)
     *list = new;
   else
@@ -83,6 +84,8 @@ void	      	add_user_to_chan(t_chan *chan, t_user *user)
   t_node	*node;
 
   node = create_node(user);
+  if (node == NULL)
+    return;
   user->state = CONNECTED;
   user->type = FD_CLIENT;
   if (chan->first == NULL)
@@ -95,5 +98,21 @@ void	      	add_user_to_chan(t_chan *chan, t_user *user)
       chan->last->next = node;
       node->prev = chan->last;
       chan->last = node;
+    }
+}
+
+void		add_conv_to_chan(t_chan *chan, int fd, char *name, char *buf)
+{
+  t_conv	*conv;
+
+  conv = create_conv(fd, name, buf);
+  if (conv == NULL)
+    return ;
+  else if (chan->conv == NULL)
+    chan->conv = conv;
+  else
+    {
+      conv->next = chan->conv;
+      chan->conv = conv;
     }
 }

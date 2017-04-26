@@ -2,25 +2,13 @@
 ** cmd_exit_func.c for  in /Volumes/SD/ETNA/slack/my_slack/server/functions
 ** 
 ** Made by DEBELLEIX Jérémy
-** Login   <debell_e@etna-alternance.net>
+** Login   <debell_j@etna-alternance.net>
 ** 
 ** Started on  Mon Apr 24 18:35:05 2017 DEBELLEIX Jérémy
-** Last update Mon Apr 24 18:38:15 2017 DEBELLEIX Jérémy
+** Last update Wed Apr 26 17:20:43 2017 BILLAUD Jean
 */
 
-int   my_nick(t_env *e, char **cmd, int fd)
-{
-  t_user  *user;
-
-  user = get_current_user(e->list, fd);
-  if (cmd[2])
-      my_putstr_fd(fd, "/nick : error, too much arguments.\n");
-  else if (cmd[1])
-      user->login = my_strdup(cmd[1]);
-  else
-    my_putstr_fd(fd, "/nick : error, argument missed.\n");
-  return (0);
-}
+#include        "../headers/server.h"
 
 int             my_exit(t_env *e, char **cmd, int fd)
 {
@@ -31,6 +19,7 @@ int             my_exit(t_env *e, char **cmd, int fd)
     {
       while (tmp)
         {
+	  notify_chan(e, fd, "Un utilisateur a quitté le channel");
           disconnect_chan(tmp->first, tmp, fd);
           tmp = tmp->next;
         }
@@ -74,7 +63,11 @@ int             my_quit(t_env *e, char **cmd, int fd)
     }
   while (tmp)
     {
-      disconnect_chan(tmp->first, tmp, fd);
+      if (tmp == get_current_chan(e->chan, fd))
+	{
+	  notify_chan(e, fd, "Un utilisateur a quitté le channel");
+	  disconnect_chan(tmp->first, tmp, fd);
+	}
       tmp = tmp->next;
     }
   return (0);

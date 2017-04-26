@@ -5,7 +5,7 @@
 ** Login   <debell_j@etna-alternance.net>
 ** 
 ** Started on  Mon Apr 24 18:35:05 2017 DEBELLEIX Jérémy
-** Last update Mon Apr 24 18:51:30 2017 DEBELLEIX Jérémy
+** Last update Wed Apr 26 17:23:48 2017 BILLAUD Jean
 */
 
 #include        "../headers/server.h"
@@ -19,7 +19,11 @@ int             my_exit(t_env *e, char **cmd, int fd)
     {
       while (tmp)
         {
-          disconnect_chan(tmp->first, tmp, fd);
+	  if(tmp == get_current_chan(e->chan, fd))
+	    {
+	      notify_chan(e, fd, "Un utilisateur a quitté le channel");
+	      disconnect_chan(tmp->first, tmp, fd);
+	    }
           tmp = tmp->next;
         }
     }
@@ -62,7 +66,11 @@ int             my_quit(t_env *e, char **cmd, int fd)
     }
   while (tmp)
     {
-      disconnect_chan(tmp->first, tmp, fd);
+      if (tmp == get_current_chan(e->chan, fd))
+	{
+	  notify_chan(e, fd, "Un utilisateur a quitté le channel");
+	  disconnect_chan(tmp->first, tmp, fd);
+	}
       tmp = tmp->next;
     }
   return (0);
