@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sat Apr 22 10:35:56 2017 BILLAUD Jean
-** Last update Wed Apr 26 17:10:54 2017 BILLAUD Jean
+** Last update Wed Apr 26 19:26:13 2017 BILLAUD Jean
 */
 
 #include "../headers/server.h"
@@ -41,6 +41,7 @@ int	select_join(t_env *e, t_user *u, t_chan *chan, char *cmd )
     {
       add_user_to_chan(chan, u);
       notify_chan(e, u->fd,"Un nouvel utilisateur a rejoint le chan");
+      get_last_conv(u->fd, chan);
       return (1);
     }
   else if (u->state == CONNECTED)
@@ -48,8 +49,21 @@ int	select_join(t_env *e, t_user *u, t_chan *chan, char *cmd )
       notify_chan(e, u->fd, "Un utilisateur a quitté le channel");
       move_user_to_chan(e->chan, chan, cmd, u);
       notify_chan(e, u->fd,"Un nouvel utilisateur a rejoint le chan");
+      get_last_conv(u->fd, chan);
       return (1);
     }
   else
     return (0);
+}
+
+void		get_last_conv(int fd, t_chan *c)
+{
+  t_conv	*cv;
+
+  cv = c->conv;
+  while(cv)
+    {
+      writing(fd, cv->u_name, cv->conv);
+      cv = cv->next;
+    }
 }

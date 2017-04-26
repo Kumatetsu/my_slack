@@ -5,7 +5,7 @@
 ** Login   <mesrat_n@etna-alternance.net>
 ** 
 ** Started on  Thu Oct  2 21:11:33 2014 MESRATI Nada
-** Last update Wed Apr 26 19:04:05 2017 BILLAUD Jean
+** Last update Sat Oct  4 21:13:33 2014 MESRATI Nada
 */
 
 int     my_strlen(char  *str);

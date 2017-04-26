@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sat Apr 22 18:05:55 2017 BILLAUD Jean
-** Last update Wed Apr 26 18:28:14 2017 BILLAUD Jean
+** Last update Wed Apr 26 19:18:04 2017 BILLAUD Jean
 */
 
 #include 	"../headers/server.h"
@@ -104,15 +104,18 @@ void	      	add_user_to_chan(t_chan *chan, t_user *user)
 void		add_conv_to_chan(t_chan *chan, int fd, char *name, char *buf)
 {
   t_conv	*conv;
+  t_conv	*tmp;
 
   conv = create_conv(fd, name, buf);
+  tmp = chan->conv;
   if (conv == NULL)
     return ;
-  else if (chan->conv == NULL)
+  if (chan->conv == NULL)
     chan->conv = conv;
-  else
+  else 
     {
-      conv->next = chan->conv;
-      chan->conv = conv;
+      while (tmp->next)
+	tmp = tmp->next;
+      tmp->next = conv;
     }
 }

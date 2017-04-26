@@ -154,5 +154,7 @@ void		add_conv_to_chan(t_chan *chan, int fd, char *name, char *buf);
 t_conv		*create_conv(int fd, char *name, char *buf);
 void		free_all_conv(t_chan *c);
 void		free_conv(t_conv *c);
+char		*my_strcat(char *str1, char *str2);
+void		get_last_conv(int fd, t_chan *c);
 
 #endif
