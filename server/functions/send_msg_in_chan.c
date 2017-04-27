@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sat Apr 22 18:08:06 2017 BILLAUD Jean
-** Last update Wed Apr 26 19:29:35 2017 BILLAUD Jean
+** Last update Thu Apr 27 16:34:19 2017 BILLAUD Jean
 */
 
 #include 	"../headers/server.h"
@@ -29,10 +29,10 @@ void		send_msg_in_chan(t_env *e, int fd, char *buf)
   current_user = (!node) ? NULL : get_current_user_in_chan(current_chan, fd);
   if (!current_chan)
     my_putstr_fd(fd, "send msg: error join a chan before.\n");
-  if (current_user->login)
-    add_conv_to_chan(current_chan, fd, current_user->login, buf);
-  else
-    add_conv_to_chan(current_chan, fd, "unknown", buf);
+  if (current_user && current_user->login && current_chan)
+      add_conv_to_chan(current_chan, fd, current_user->login, buf);
+  else if (current_chan)
+      add_conv_to_chan(current_chan, fd, "unknown", buf);
   while (node)
     {
       if (FD_ISSET(node->user->fd, &e->fd_write) && fd != node->user->fd &&
