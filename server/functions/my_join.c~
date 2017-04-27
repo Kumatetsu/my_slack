@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sat Apr 22 10:35:56 2017 BILLAUD Jean
-** Last update Wed Apr 26 19:24:28 2017 BILLAUD Jean
+** Last update Wed Apr 26 19:26:13 2017 BILLAUD Jean
 */
 
 #include "../headers/server.h"
@@ -59,7 +59,7 @@ int	select_join(t_env *e, t_user *u, t_chan *chan, char *cmd )
 void		get_last_conv(int fd, t_chan *c)
 {
   t_conv	*cv;
-  my_putstr("OK");
+
   cv = c->conv;
   while(cv)
     {

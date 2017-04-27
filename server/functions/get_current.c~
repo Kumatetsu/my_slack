@@ -5,7 +5,7 @@
 ** Login   <billau_j@etna-alternance.net>
 ** 
 ** Started on  Sat Apr 22 18:06:45 2017 BILLAUD Jean
-** Last update Thu Apr 27 16:50:51 2017 BILLAUD Jean
+** Last update Mon Apr 24 19:27:52 2017 DEBELLEIX Jérémy
 */
 
 #include 	"../headers/server.h"
@@ -85,7 +85,7 @@ int             is_existing_user(char *login, t_env *e, int fd)
   tmp = e->list;
   while (tmp)
     {
-      if (tmp->fd != fd && tmp->login && tmp->fd != 3)
+      if (tmp->fd != fd && tmp->login)
         {
           if (my_strcmp(tmp->login, login) == 0)
             {
